@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import UserInfoContext from "../contexts/UserInfoContext";
 
 export default function Header() {
+  const {userInfo} = useContext(UserInfoContext)
     return (
         <HeaderStyle>
             <h1>TrackIt</h1>
-            <img src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" />
+            <img src={userInfo.image ? userInfo.image : "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"} alt='usuário' />
         </HeaderStyle>
     );
 }

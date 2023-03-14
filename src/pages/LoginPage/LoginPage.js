@@ -2,23 +2,27 @@ import axios from "axios";
 import logo from "../../assets/trackitLogo.svg"
 import { url } from "../../constants/url";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { InputsStyles, MainStyle } from "../../style/SignInSignUp";
+import UserInfoContext from "../../contexts/UserInfoContext";
 
 export default function LoginPage() {
     const navigate = useNavigate()
     const [form, setForm] = useState({});
     const [processing, setProcessing] = useState(false)
+    const { setUserInfo } = useContext(UserInfoContext);
     useEffect(() => {
         setForm({ email: '', password: '' });
     }, []);
     function handleLoginSubmit(e) {
         e.preventDefault();
-        console.log(form);
         setProcessing(true);
         axios.post(`${url}auth/login`, form)
-            .then(res => navigate('/hoje'))
+            .then(res => {
+                navigate('/hoje');
+                setUserInfo({ name: res.data.name, image: res.data.image });
+            })
             .catch(err => {
                 alert(err.response.data.message);
                 setProcessing(false);
