@@ -1,6 +1,62 @@
-// import UserInfo from "../../components/UserInfo";
-// import logo from "../../assets/trackitLogo.svg"
-import SignInSignUp from "../../components/SignInSignUp";
+import axios from "axios";
+import logo from "../../assets/trackitLogo.svg"
+import { url } from "../../constants/url";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import { InputsStyles, MainStyle } from "../../style/SignInSignUp";
+
 export default function LoginPage() {
-    return <SignInSignUp id='login'/>;
+    const navigate = useNavigate()
+    const [form, setForm] = useState({});
+    const [processing, setProcessing] = useState(false)
+    useEffect(() => {
+        setForm({ email: '', password: '' });
+    }, []);
+    function handleLoginSubmit(e) {
+        e.preventDefault();
+        console.log(form);
+        setProcessing(true);
+        axios.post(`${url}auth/login`, form)
+            .then(res => navigate('/hoje'))
+            .catch(err => {
+                alert(err.response.data.message);
+                setProcessing(false);
+            });
+    }
+    function handleInputChange(e) {
+        setForm({ ...form, [e.target.name]: e.target.value })
+    }
+    return (
+        <MainStyle>
+            <img src={logo} />
+            <InputsStyles>
+                <form onSubmit={handleLoginSubmit} >
+                    <input
+                        placeholder="email"
+                        type='email'
+                        name='email'
+                        required
+                        onChange={handleInputChange}
+                        disabled={processing}
+                    />
+                    <input
+                        placeholder="senha"
+                        type='password'
+                        name='password'
+                        required
+                        onChange={handleInputChange}
+                        disabled={processing}
+                    />
+                    <button type='submit' disabled={processing}>
+                        {!processing ? 'Entrar' : <ThreeDots color='#ffff' width='51px' />}
+                    </button>
+                </form>
+                <Link to='/cadastro'>
+                    Não tem uma conta? Cadastre-se!
+                </Link>
+            </InputsStyles>
+        </MainStyle>
+    );
 }
+

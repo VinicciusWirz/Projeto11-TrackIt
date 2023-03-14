@@ -1,31 +1,20 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function UserInfo({ id }) {
-    return (
-        <InputsStyles>
-            <>
-                <form>
-                    <input placeholder="email" type='text' required />
-                    <input placeholder="senha" type={id === 'login' ? 'password' : 'text'} required />
-                    {id === 'signup' &&
-                        <>
-                            <input placeholder="nome" type='text' required />
-                            <input placeholder="foto" type='text' required />
-                        </>
-                    }
-                    <Link to={id === 'login' ? '/hoje' : '/'}>
-                    <button>{id === 'login' ? 'Entrar' : 'Cadastrar'}</button>
-                    </Link>
-                </form>
-                <Link to={id === 'login' ? '/cadastro' : '/'}>
-                    {id === 'login' ? 'Não tem uma conta? Cadastre-se!' : 'Já tem uma conta? Faça login!'}
-                </Link>
-            </>
-        </InputsStyles>
-    )
-}
-const InputsStyles = styled.div`
+export const MainStyle = styled.main`
+    display: flex;
+    background: #FFFFFF;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+    img{
+        margin-top: 68px;
+    }
+`;
+
+export const InputsStyles = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -52,6 +41,10 @@ form{
             color: #DBDBDB;
         }
     }
+    input:disabled{
+        background: #F2F2F2;
+        color: #AFAFAF;
+    }
     button{
         width: 303px;
         height: 45px;
@@ -65,6 +58,12 @@ form{
         line-height: 26px;
         text-align: center;
         color: #FFFFFF;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    button:disabled{
+        opacity: 0.7;
     }
 }
 a{
