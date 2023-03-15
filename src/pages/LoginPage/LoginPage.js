@@ -14,6 +14,12 @@ export default function LoginPage() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
     useEffect(() => {
         setForm({ email: '', password: '' });
+        if(localStorage.getItem('userData') !== null){
+            const localData = JSON.parse(localStorage.getItem('userData'));
+            console.log(localData)
+            setUserInfo({ ...userInfo, ...localData });
+            navigate('/hoje');
+        }
     }, []);
     function handleLoginSubmit(e) {
         e.preventDefault();
@@ -22,6 +28,9 @@ export default function LoginPage() {
             .then(res => {
                 navigate('/hoje');
                 setUserInfo({ ...userInfo, name: res.data.name, image: res.data.image, token: res.data.token });
+                const localData = JSON.stringify({ name: res.data.name, image: res.data.image, token: res.data.token });
+                localStorage.setItem('userData', localData);
+                
             })
             .catch(err => {
                 alert(err.response.data.message);

@@ -34,18 +34,22 @@ export default function HabitsPage() {
 
     function handleAddhabbitSubmit(e) {
         e.preventDefault();
-        setLoadingForm(true);
-        axios.post(habitsUrl, form, config)
-            .then(res => {
-                setForm({ name: '', days: [] });
-                setUserInfo({ ...userInfo, habits: [...userInfo.habits, res.data] });
-                setAddNewHabit(false);
-                setLoadingForm(false);
-            })
-            .catch(err => {
-                err.response.data.message === "Campo Header inválido!" ? alert('Sessão expirada') : alert(err.response.data.message);
-                setLoadingForm(false);
-            });
+        if(!(form.name.trim().length === 0)){
+            setLoadingForm(true);
+            axios.post(habitsUrl, form, config)
+                .then(res => {
+                    setForm({ name: '', days: [] });
+                    setUserInfo({ ...userInfo, habits: [...userInfo.habits, res.data] });
+                    setAddNewHabit(false);
+                    setLoadingForm(false);
+                })
+                .catch(err => {
+                    err.response.data.message === "Campo Header inválido!" ? alert('Sessão expirada') : alert(err.response.data.message);
+                    setLoadingForm(false);
+                });
+        } else {
+            alert('O hábito não pode estar em branco');
+        }
     }
 
     function addFormSelectDay(e) {

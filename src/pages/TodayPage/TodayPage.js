@@ -69,15 +69,10 @@ export default function TodayPage() {
                             {userInfo.date.weekday}, {userInfo.date.calendarDate}
                         </div>
                         <Progress data-test="today-counter" color={userInfo.progress > 0 ? '#8FC549' : '#BABABA'}>
-                            {userInfo.progress === 0 ? 'Nenhum hábito concluído ainda' :
-                                userInfo.todayHabits.length !== 0 ?
-                                    <>
-                                        {userInfo.progress.toFixed(0)}% dos hábitos concluídos
-                                    </>
-                                    :
-                                    <>
-                                        Você não tem hábitos para hoje
-                                    </>
+                            {(userInfo.progress === 0 || userInfo.todayHabits.length === 0) ? 'Nenhum hábito concluído ainda' :
+                                <>
+                                    {userInfo.progress.toFixed(0)}% dos hábitos concluídos
+                                </>
                             }
                         </Progress>
                     </Title>

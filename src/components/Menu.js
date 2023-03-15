@@ -20,7 +20,7 @@ export default function Menu() {
                     <Progress>
                         <CircularProgressbar
                             text='Hoje'
-                            value={userInfo.todayHabits.length === 0 ? '100' : userInfo.progress}
+                            value={userInfo.todayHabits.length === 0 ? '0' : userInfo.progress}
                             backgroundPadding='6px'
                             styles={buildStyles({
                                 backgroundColor: '#52B6FF',
