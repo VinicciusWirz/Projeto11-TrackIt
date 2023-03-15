@@ -1,67 +1,26 @@
-import styled from "styled-components";
 import checkMark from "../../../assets/check.svg"
+import { CheckBox, HabitContent, SequenceStyle } from "../styled";
 
-export default function HabitCard() {
+export default function HabitCard({ cardInfo, handleToggleCheckbox }) {
+    const { currentSequence, done, highestSequence, id, name } = cardInfo;
+
     return (
         <HabitContent>
             <div>
                 <h3>
-                    Titulo do hábito
+                    {name}
                 </h3>
                 <p>
-                    Sequência atual: 3 dias
+                    Sequência atual: <SequenceStyle done={done ? '#8FC549' : '#666666'}>{currentSequence} {currentSequence > 1 ? 'dias' : 'dia'}</SequenceStyle>
                 </p>
                 <p>
-                    Seu recorde: 5 dias
+                    Seu recorde: <SequenceStyle done={highestSequence === currentSequence ? '#8FC549' : '#666666' }>{highestSequence} {highestSequence > 1 ? 'dias' : 'dia'}</SequenceStyle>
                 </p>
             </div>
 
-            <CheckBox>
-                <img src={checkMark} />
+            <CheckBox done={done ? '#8FC549' : '#EBEBEB'}>
+                <img src={checkMark} onClick={() => handleToggleCheckbox(id, done)} />
             </CheckBox>
         </HabitContent>
     );
 }
-const HabitContent = styled.li`
-    padding: 13px 13px 12px 15px;
-    background: #FFFFFF;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    div:nth-child(1){
-        display: flex;
-        flex-direction: column;
-        max-width: 72%;
-    }
-    h3{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 25px;
-        color: #666666;
-        line-break: anywhere;
-    }
-    p{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 13px;
-        line-height: 16px;
-        color: #666666;
-    }
-`;
-
-const CheckBox = styled.div`
-    min-width: 69px;
-    min-height: 69px;
-    max-width: 69px;
-    max-height: 69px;
-    background-color: #EBEBEB;
-    border: 1px solid #E7E7E7;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;

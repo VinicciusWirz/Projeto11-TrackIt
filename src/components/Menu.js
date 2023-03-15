@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import "react-circular-progressbar/dist/styles.css";
 import { Link } from "react-router-dom";
+import UserInfoContext from "../contexts/UserInfoContext";
+import { useContext } from "react";
 
 export default function Menu() {
+    const { userInfo } = useContext(UserInfoContext);
     return (
         <MenuStyle>
             <div>
@@ -17,7 +20,7 @@ export default function Menu() {
                     <Progress>
                         <CircularProgressbar
                             text='Hoje'
-                            value={20}
+                            value={userInfo.todayHabits.length === 0 ? '100' : userInfo.progress}
                             backgroundPadding='6px'
                             styles={buildStyles({
                                 backgroundColor: '#52B6FF',

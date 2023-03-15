@@ -11,7 +11,7 @@ export default function LoginPage() {
     const navigate = useNavigate()
     const [form, setForm] = useState({});
     const [processing, setProcessing] = useState(false)
-    const { setUserInfo } = useContext(UserInfoContext);
+    const { userInfo, setUserInfo } = useContext(UserInfoContext);
     useEffect(() => {
         setForm({ email: '', password: '' });
     }, []);
@@ -21,7 +21,7 @@ export default function LoginPage() {
         axios.post(`${url}/auth/login`, form)
             .then(res => {
                 navigate('/hoje');
-                setUserInfo({ name: res.data.name, image: res.data.image, token: res.data.token, habits:[] });
+                setUserInfo({ ...userInfo, name: res.data.name, image: res.data.image, token: res.data.token });
             })
             .catch(err => {
                 alert(err.response.data.message);

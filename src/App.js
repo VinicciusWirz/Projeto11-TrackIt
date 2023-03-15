@@ -10,7 +10,7 @@ import UserInfoContext from "./contexts/UserInfoContext";
 import { useState } from "react";
 
 export default function App() {
-  const [userInfo, setUserInfo] = useState({ name: '', image: '', token: '', habits:[] })
+  const [userInfo, setUserInfo] = useState({ name: '', image: '', token: '', habits: [], todayHabits: [], progress: 0 })
   return (
     <UserInfoContext.Provider value={{ userInfo, setUserInfo }}>
       <BrowserRouter>
