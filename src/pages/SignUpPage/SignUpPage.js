@@ -18,7 +18,7 @@ export default function SignUpPage() {
     function handleSingInSubmit(e) {
         e.preventDefault();
         setProcessing(true);
-        axios.post(`${url}auth/sign-up`, form)
+        axios.post(`${url}/auth/sign-up`, form)
             .then(() => navigate('/'))
             .catch(err => {
                 alert(err.response.data.message);

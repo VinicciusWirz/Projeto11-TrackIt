@@ -18,10 +18,10 @@ export default function LoginPage() {
     function handleLoginSubmit(e) {
         e.preventDefault();
         setProcessing(true);
-        axios.post(`${url}auth/login`, form)
+        axios.post(`${url}/auth/login`, form)
             .then(res => {
                 navigate('/hoje');
-                setUserInfo({ name: res.data.name, image: res.data.image });
+                setUserInfo({ name: res.data.name, image: res.data.image, token: res.data.token, habits:[] });
             })
             .catch(err => {
                 alert(err.response.data.message);

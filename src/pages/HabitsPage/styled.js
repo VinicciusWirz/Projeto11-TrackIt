@@ -61,25 +61,34 @@ export const MenuAddHabitStyle = styled.form`
         font-weight: 400;
         font-size: 20px;
         line-height: 25px;
-        color: #DBDBDB;
+        color: #666666;
         &::placeholder{
-            color:#d4d4d4;
+            color:#DBDBDB;
+        }
+        &:disabled{
+            background-color: #F2F2F2;
+            color: #B3B3B3;
         }
     }
     div:nth-child(1){
         button{
-            background: #FFFFFF;
-            border: 1px solid #D5D5D5;
-            border-radius: 5px;
-            font-family: 'Lexend Deca';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 20px;
-            line-height: 25px;
-            color: #DBDBDB;
-            margin-top: 8px;
-            margin-right: 4px;
+
         }
+    }
+`;
+
+export const BtnDaysWrapper = styled.div`
+    display: flex;
+    div{
+        border: 1px solid #D5D5D5;
+         border-radius: 5px;
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 25px;
+        margin-top: 8px;
+        margin-right: 4px;
     }
 `;
 
@@ -95,13 +104,51 @@ export const ButtonWrapper = styled.div`
         font-family: 'Lexend Deca';
         font-style: normal;
         font-weight: 400;
-        font-size: 15.976px;
+        font-size: 16px;
         line-height: 20px;
         text-align: center;
         color: #FFFFFF;
+        &:disabled{
+            opacity: 0.7;
+        }
     }
     button:nth-child(1){
         color: #52B6FF;
         background-color: #FFFFFF;
+        margin-right: 10px;
     }
+`;
+
+export const BtnDays = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 4px;
+    background: ${({ selected }) => selected ? '#cfcfcf' : '#FFFFFF'};
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+    color: ${({ selected }) => selected ? '#FFFFFF' : '#DBDBDB'};
+`;
+
+export const HabitList = styled.ul`
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #666666;
+`;
+
+export const LoadingIcon = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
