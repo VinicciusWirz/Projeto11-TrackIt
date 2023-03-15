@@ -68,23 +68,38 @@ export default function HabitsPage() {
         <PageContainer>
             <nav>
                 Meus hábitos
-                <AddHabit onClick={() => setAddNewHabit(!addNewHabit)}>+</AddHabit>
+                <AddHabit onClick={() => setAddNewHabit(!addNewHabit)} data-test="habit-create-btn">+</AddHabit>
             </nav>
             <div>
                 {addNewHabit && (
-                    <MenuAddHabitStyle onSubmit={handleAddhabbitSubmit}>
+                    <MenuAddHabitStyle onSubmit={handleAddhabbitSubmit} data-test="habit-create-container">
                         <div>
-                            <input placeholder="nome do hábito" required type='text' name='name' onChange={handleChange} value={form.name} disabled={loadingForm} />
+                            <input
+                                placeholder="nome do hábito"
+                                required type='text'
+                                name='name'
+                                onChange={handleChange}
+                                value={form.name}
+                                disabled={loadingForm}
+                                data-test="habit-name-input"
+                            />
                             <BtnDaysWrapper>
-                                {days.map((d, i) => <BtnDays key={i} id={i} selected={form.days.includes(i)} onClick={addFormSelectDay} disabled={loadingForm}>
+                                {days.map((d, i) => <BtnDays
+                                    key={i}
+                                    id={i}
+                                    selected={form.days.includes(i)}
+                                    onClick={addFormSelectDay}
+                                    disabled={loadingForm}
+                                    data-test="habit-day"
+                                >
                                     {d}
                                 </BtnDays>)
                                 }
                             </BtnDaysWrapper>
                         </div>
                         <ButtonWrapper>
-                            <button type="reset" disabled={loadingForm} onClick={() => setAddNewHabit(!addNewHabit)}>Cancelar</button>
-                            <button type="submit" disabled={loadingForm}>{loadingForm ? <ThreeDots color='#ffff' height='11px' /> : 'Salvar'}</button>
+                            <button type="reset" disabled={loadingForm} onClick={() => setAddNewHabit(!addNewHabit)} data-test="habit-create-cancel-btn">Cancelar</button>
+                            <button type="submit" disabled={loadingForm} data-test="habit-create-save-btn">{loadingForm ? <ThreeDots color='#ffff' height='11px' /> : 'Salvar'}</button>
                         </ButtonWrapper>
                     </MenuAddHabitStyle>
                 )}

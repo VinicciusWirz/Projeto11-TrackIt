@@ -8,7 +8,7 @@ import weekdayList from "../../constants/weekday";
 import { url } from "../../constants/url";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
-import { Progress, ProgressStyle, Title } from "./styled";
+import { Title, Progress } from "./styled";
 
 export default function TodayPage() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
@@ -65,14 +65,14 @@ export default function TodayPage() {
                 :
                 <>
                     <Title>
-                        {userInfo.date.weekday}, {userInfo.date.calendarDate}
-                        <Progress>
+                        <div data-test="today" >
+                            {userInfo.date.weekday}, {userInfo.date.calendarDate}
+                        </div>
+                        <Progress data-test="today-counter" color={userInfo.progress > 0 ? '#8FC549' : '#BABABA'}>
                             {userInfo.progress === 0 ? 'Nenhum hábito concluído ainda' :
                                 userInfo.todayHabits.length !== 0 ?
                                     <>
-                                        <ProgressStyle color={userInfo.progress > 0 ? '#8FC549' : '#BABABA'}>
-                                            {userInfo.progress.toFixed(0)}% dos hábitos concluídos
-                                        </ProgressStyle>
+                                        {userInfo.progress.toFixed(0)}% dos hábitos concluídos
                                     </>
                                     :
                                     <>

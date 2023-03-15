@@ -23,13 +23,15 @@ export default function HabitCard(props) {
     }
 
     return (
-        <HabitWrapper>
+        <HabitWrapper data-test="habit-container">
             <HabitInfo>
-                {props.card.name}
-                <img src={trashIcon} onClick={() => deleteHabit(props.card.id)} />
+                <div data-test="habit-name">
+                    {props.card.name}
+                </div>
+                <img src={trashIcon} onClick={() => deleteHabit(props.card.id)} data-test="habit-delete-btn" />
             </HabitInfo>
             <ButtonsWrapper>
-                {days.map((d, i) => <BtnDays key={i} id={i} selected={props.card.days.includes(i)}>{d}</BtnDays>)}
+                {days.map((d, i) => <BtnDays key={i} id={i} selected={props.card.days.includes(i)} data-test="habit-day">{d}</BtnDays>)}
             </ButtonsWrapper>
         </HabitWrapper>
     );
@@ -42,7 +44,7 @@ const HabitInfo = styled.div`
     img{
         align-self: flex-start;
     }
-`
+`;
 
 const HabitWrapper = styled.li`
     background: #FFFFFF;

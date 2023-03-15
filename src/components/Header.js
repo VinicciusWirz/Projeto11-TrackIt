@@ -5,7 +5,7 @@ import UserInfoContext from "../contexts/UserInfoContext";
 export default function Header() {
   const {userInfo} = useContext(UserInfoContext)
     return (
-        <HeaderStyle>
+        <HeaderStyle data-test="header">
             <h1>TrackIt</h1>
             <img src={userInfo.image ? userInfo.image : "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"} alt='usuário' />
         </HeaderStyle>

@@ -43,6 +43,7 @@ export default function LoginPage() {
                         required
                         onChange={handleInputChange}
                         disabled={processing}
+                        data-test="email-input"
                     />
                     <input
                         placeholder="senha"
@@ -51,12 +52,13 @@ export default function LoginPage() {
                         required
                         onChange={handleInputChange}
                         disabled={processing}
+                        data-test="password-input"
                     />
-                    <button type='submit' disabled={processing}>
+                    <button type='submit' disabled={processing} data-test="login-btn">
                         {!processing ? 'Entrar' : <ThreeDots color='#ffff' width='51px' />}
                     </button>
                 </form>
-                <Link to='/cadastro'>
+                <Link to='/cadastro' data-test="signup-link">
                     Não tem uma conta? Cadastre-se!
                 </Link>
             </InputsStyles>

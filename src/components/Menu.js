@@ -8,15 +8,15 @@ import { useContext } from "react";
 export default function Menu() {
     const { userInfo } = useContext(UserInfoContext);
     return (
-        <MenuStyle>
+        <MenuStyle data-test="menu">
             <div>
-                <Link to='/habitos'>
+                <Link to='/habitos' data-test="habit-link">
                     Hábitos
                 </Link>
             </div>
 
             <div>
-                <Link to='/hoje'>
+                <Link to='/hoje' data-test="today-link">
                     <Progress>
                         <CircularProgressbar
                             text='Hoje'
@@ -34,7 +34,7 @@ export default function Menu() {
             </div>
 
             <div>
-                <Link to='/historico'>
+                <Link to='/historico' data-test="history-link">
                     Histórico
                 </Link>
             </div>

@@ -42,6 +42,7 @@ export default function SignUpPage() {
                         required
                         onChange={handleInputChange}
                         disabled={processing}
+                        data-test="email-input"
                     />
                     <input
                         placeholder="senha"
@@ -50,6 +51,7 @@ export default function SignUpPage() {
                         required
                         onChange={handleInputChange}
                         disabled={processing}
+                        data-test="password-input"
                     />
                     <input
                         placeholder="nome"
@@ -58,6 +60,7 @@ export default function SignUpPage() {
                         required
                         onChange={handleInputChange}
                         disabled={processing}
+                        data-test="user-name-input"
                     />
                     <input
                         placeholder="foto"
@@ -66,12 +69,13 @@ export default function SignUpPage() {
                         required
                         onChange={handleInputChange}
                         disabled={processing}
+                        data-test="user-image-input"
                     />
-                    <button type='submit' disabled={processing}>
+                    <button type='submit' disabled={processing} data-test="signup-btn">
                         {!processing ? 'Cadastrar' : <ThreeDots color='#ffff' width='51px' />}
                     </button>
                 </form>
-                <Link to='/'>
+                <Link to='/' data-test="login-link">
                     Já tem uma conta? Faça login!
                 </Link>
             </InputsStyles>

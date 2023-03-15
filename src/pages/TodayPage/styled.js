@@ -6,8 +6,10 @@ export const Title = styled.div`
     font-weight: 400;
     font-size: 23px;
     line-height: 29px;
-    color: #126BA5;
     margin-bottom: 28px;
+    div:nth-child(1){
+        color: #126BA5;
+    }
 `;
 export const Progress = styled.div`
     font-family: 'Lexend Deca';
@@ -15,13 +17,8 @@ export const Progress = styled.div`
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    color: #BABABA;
+    color:${({ color }) => color};
 `;
-
-export const ProgressStyle = styled.span`
-color:${({color}) => color};
-
-`
 
 export const HabitContent = styled.li`
     padding: 13px 13px 12px 15px;
@@ -67,5 +64,5 @@ export const CheckBox = styled.div`
     align-items: center;
 `;
 export const SequenceStyle = styled.span`
-color:${({done}) => done};
+color:${({ done }) => done};
 `;
