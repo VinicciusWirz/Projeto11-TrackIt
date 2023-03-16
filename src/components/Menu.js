@@ -68,7 +68,6 @@ function Progress(props) {
             {props.children}
         </div>
     )
-
 }
 
 const MenuStyle = styled.footer`

@@ -17,7 +17,7 @@ export const HistoryContainer = styled.div`
     font-size: 18px;
     line-height: 22px;
     border-radius: 10px;
-    -webkit-tap-highlight-color: none;
+    -webkit-tap-highlight-color: transparent;
     justify-self: center;
     width: 100%;
     display: flex;

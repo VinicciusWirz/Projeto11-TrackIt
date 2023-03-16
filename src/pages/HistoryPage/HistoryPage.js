@@ -8,11 +8,13 @@ import { Day, HistoryContainer, Title } from "./styled";
 import { url } from "../../constants/url";
 import UserInfoContext from "../../contexts/UserInfoContext";
 import TokenContext from "../../contexts/TokenContext";
+import EventInfoModal from "./components/EventInfoModal";
 
 export default function HistoryPage() {
     const { userInfo } = useContext(UserInfoContext);
     const { tokenStored } = useContext(TokenContext);
     const [habitDays, setHabitDays] = useState([]);
+    const [modal, setModal] = useState('');
 
     useEffect(() => {
         const config = {
@@ -29,25 +31,32 @@ export default function HistoryPage() {
                     });
                     setHabitDays(updatedArray);
                 })
-                .catch(err => console.log(err));
+                .catch(err => alert(err.response.data.message));
         }
     }, [tokenStored]);
 
     function formatDay(date) {
         const habitDaysItem = habitDays.find((d) => d.day === dayjs(date).format("DD/MM/YYYY"));
-        const dia = date.getDate()
+        const dayNumber = date.getDate();
         if (habitDaysItem && !dayjs(date).isSame(dayjs(), 'day')) {
             return (
                 <Day background={habitDaysItem.allDone ? '#8cc654' : '#ea5766'}>
-                    {dia}
+                    {dayNumber}
                 </Day>
             );
         }
         return (
             <div>
-                {dia}
+                {dayNumber}
             </div>
         );
+    }
+
+    function showDayInfo(value) {
+        const habitDaysItem = habitDays.find((d) => d.day === dayjs(value).format("DD/MM/YYYY"));
+        if (habitDaysItem && !dayjs(value).isSame(dayjs(), 'day')) {
+            setModal(habitDaysItem);
+        }
     }
 
     return (
@@ -56,8 +65,14 @@ export default function HistoryPage() {
                 Histórico
             </Title>
             <HistoryContainer data-test="calendar">
-                <Calendar calendarType={'US'} formatDay={(locale, date) => formatDay(date)} />
+                <Calendar
+                    calendarType={'US'}
+                    formatDay={(locale, date) => formatDay(date)}
+                    onClickDay={(value) => showDayInfo(value)}
+                />
             </HistoryContainer>
+            {modal && <EventInfoModal setModal={setModal} modal={modal} />}
+
         </PageContainer>
     )
 }
