@@ -1,25 +1,13 @@
 import styled from "styled-components";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import "react-circular-progressbar/dist/styles.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserInfoContext from "../contexts/UserInfoContext";
-import { useContext, useEffect } from "react";
-import TokenContext from "../contexts/TokenContext";
+import { useContext } from "react";
 
 export default function Menu() {
-    const { userInfo, setUserInfo } = useContext(UserInfoContext);
-    const { setTokenStored } = useContext(TokenContext);
-    const navigate = useNavigate();
+    const { userInfo } = useContext(UserInfoContext);
 
-    useEffect(() => {
-        if (localStorage.getItem('userData') !== null) {
-            const localData = JSON.parse(localStorage.getItem('userData'));
-            setUserInfo({ ...userInfo, ...localData });
-            setTokenStored(true);
-        } else {
-            navigate('/');
-        }
-    }, []);
     return (
         <MenuStyle data-test="menu">
             <div>

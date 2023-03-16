@@ -9,6 +9,8 @@ import { url } from "../../constants/url";
 import UserInfoContext from "../../contexts/UserInfoContext";
 import TokenContext from "../../contexts/TokenContext";
 import EventInfoModal from "./components/EventInfoModal";
+import Header from "../../components/Header";
+import Menu from "../../components/Menu";
 
 export default function HistoryPage() {
     const { userInfo } = useContext(UserInfoContext);
@@ -60,20 +62,24 @@ export default function HistoryPage() {
     }
 
     return (
-        <PageContainer>
-            <Title>
-                Histórico
-            </Title>
-            <HistoryContainer data-test="calendar">
-                <Calendar
-                    calendarType={'US'}
-                    formatDay={(locale, date) => formatDay(date)}
-                    onClickDay={(value) => showDayInfo(value)}
-                />
-            </HistoryContainer>
-            {modal && <EventInfoModal setModal={setModal} modal={modal} />}
+        <>
+            <Header />
+            <PageContainer>
+                <Title>
+                    Histórico
+                </Title>
+                <HistoryContainer data-test="calendar">
+                    <Calendar
+                        calendarType={'US'}
+                        formatDay={(locale, date) => formatDay(date)}
+                        onClickDay={(value) => showDayInfo(value)}
+                    />
+                </HistoryContainer>
+                {modal && <EventInfoModal setModal={setModal} modal={modal} />}
 
-        </PageContainer>
+            </PageContainer>
+            <Menu />
+        </>
     );
 }
 

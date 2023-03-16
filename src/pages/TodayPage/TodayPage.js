@@ -10,6 +10,8 @@ import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { Title, Progress } from "./styled";
 import TokenContext from "../../contexts/TokenContext";
+import Header from "../../components/Header";
+import Menu from "../../components/Menu";
 
 export default function TodayPage() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
@@ -65,30 +67,34 @@ export default function TodayPage() {
     }
 
     return (
-        <PageContainer>
-            {loading ?
-                <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon>
-                :
-                <>
-                    <Title>
-                        <div data-test="today" >
-                            {userInfo.date.weekday}, {userInfo.date.calendarDate}
-                        </div>
-                        <Progress data-test="today-counter" color={userInfo.progress > 0 ? '#8FC549' : '#BABABA'}>
-                            {(userInfo.progress === 0 || userInfo.todayHabits.length === 0) ? 'Nenhum hábito concluído ainda' :
-                                <>
-                                    {userInfo.progress.toFixed(0)}% dos hábitos concluídos
-                                </>
-                            }
-                        </Progress>
-                    </Title>
-                    <ul>
-                        {userInfo.todayHabits.map(h => <HabitCard key={h.id} cardInfo={h} handleToggleCheckbox={handleToggleCheckbox} />)}
-                    </ul>
-                </>
+        <>
+            <Header />
+            <PageContainer>
+                {loading ?
+                    <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon>
+                    :
+                    <>
+                        <Title>
+                            <div data-test="today" >
+                                {userInfo.date.weekday}, {userInfo.date.calendarDate}
+                            </div>
+                            <Progress data-test="today-counter" color={userInfo.progress > 0 ? '#8FC549' : '#BABABA'}>
+                                {(userInfo.progress === 0 || userInfo.todayHabits.length === 0) ? 'Nenhum hábito concluído ainda' :
+                                    <>
+                                        {userInfo.progress.toFixed(0)}% dos hábitos concluídos
+                                    </>
+                                }
+                            </Progress>
+                        </Title>
+                        <ul>
+                            {userInfo.todayHabits.map(h => <HabitCard key={h.id} cardInfo={h} handleToggleCheckbox={handleToggleCheckbox} />)}
+                        </ul>
+                    </>
 
-            }
+                }
 
-        </PageContainer >
+            </PageContainer >
+            <Menu />
+        </>
     );
 }

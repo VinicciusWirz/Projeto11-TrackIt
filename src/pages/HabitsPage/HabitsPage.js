@@ -8,6 +8,8 @@ import HabitCard from "./components/HabitCard";
 import { ThreeDots } from "react-loader-spinner";
 import TokenContext from "../../contexts/TokenContext";
 import MenuAddHabit from "./components/MenuAddHabit";
+import Header from "../../components/Header";
+import Menu from "../../components/Menu";
 
 export default function HabitsPage() {
     const [addNewHabit, setAddNewHabit] = useState(false);
@@ -35,19 +37,23 @@ export default function HabitsPage() {
     }, [tokenStored]);
 
     return (
-        <PageContainer>
-            <nav>
-                Meus hábitos
-                <AddHabit onClick={() => setAddNewHabit(!addNewHabit)} data-test="habit-create-btn">+</AddHabit>
-            </nav>
-            <div>
-                {addNewHabit && <MenuAddHabit addNewHabit={addNewHabit} setAddNewHabit={setAddNewHabit} habitsUrl={habitsUrl} />}
-                <HabitList>
-                    {loadingPage ? <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon> :
-                        userInfo.habits.length === 0 && 'Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!'}
-                    {userInfo.habits.length > 0 && userInfo.habits.map(h => <HabitCard key={h.id} card={h} />)}
-                </HabitList>
-            </div>
-        </PageContainer>
+        <>
+            <Header />
+            <PageContainer>
+                <nav>
+                    Meus hábitos
+                    <AddHabit onClick={() => setAddNewHabit(!addNewHabit)} data-test="habit-create-btn">+</AddHabit>
+                </nav>
+                <div>
+                    {addNewHabit && <MenuAddHabit addNewHabit={addNewHabit} setAddNewHabit={setAddNewHabit} habitsUrl={habitsUrl} />}
+                    <HabitList>
+                        {loadingPage ? <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon> :
+                            userInfo.habits.length === 0 && 'Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!'}
+                        {userInfo.habits.length > 0 && userInfo.habits.map(h => <HabitCard key={h.id} card={h} />)}
+                    </HabitList>
+                </div>
+            </PageContainer>
+            <Menu />
+        </>
     );
 }
