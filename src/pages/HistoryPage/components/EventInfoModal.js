@@ -5,7 +5,10 @@ import weekday from "../../../constants/weekday";
 import { CheckBox, HabitCard, HabitList, ModalContainer, ModalStyle, ModalTitle, Result, ResultMessage } from "../styled";
 
 export default function EventInfoModal({ setModal, modal }) {
-    const dayOfTheWeek = (modal.habits[0].weekDay > 0 && modal.habits[0].weekDay < 6) ?
+    const sundayIndex = 0;
+    const saturdayIndex = 6;
+    const percentage = 100;
+    const dayOfTheWeek = (modal.habits[0].weekDay > sundayIndex && modal.habits[0].weekDay < saturdayIndex) ?
         `${weekday[modal.habits[0].weekDay]}-feira`
         :
         weekday[modal.habits[0].weekDay];
@@ -14,7 +17,7 @@ export default function EventInfoModal({ setModal, modal }) {
         complete: '#8FC549',
         partial: '#ea5766'
     };
-    const progressDay = (everyDone() * 100) / modal.habits.length;
+    const progressDay = (everyDone() * percentage) / modal.habits.length;
 
     function turnOffModal() {
         setModal(false);
@@ -27,7 +30,7 @@ export default function EventInfoModal({ setModal, modal }) {
     }
 
     return (
-        <ModalStyle onClick={(e) => turnOffModal(e)}>
+        <ModalStyle onClick={turnOffModal}>
             <ModalContainer onClick={(event) => event.stopPropagation()}>
                 <ModalTitle>
                     <p>
@@ -50,7 +53,7 @@ export default function EventInfoModal({ setModal, modal }) {
                     )}
                 </HabitList>
                 <Result>
-                    <Progress backgroundColor={progressDay === 100 ? colors.complete : colors.partial} >
+                    <Progress backgroundColor={progressDay === percentage ? colors.complete : colors.partial} >
                         <CircularProgressbar
                             text={`${progressDay.toFixed(0)}%`}
                             value={progressDay}
@@ -64,7 +67,7 @@ export default function EventInfoModal({ setModal, modal }) {
                         />
                     </Progress>
                     <ResultMessage>
-                        {progressDay === 100 ? (
+                        {progressDay === percentage ? (
                             <>
                                 <p>Muito bem, você conseguiu fazer tudo!</p>
                                 <p>😄</p>

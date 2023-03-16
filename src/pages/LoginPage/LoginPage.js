@@ -13,10 +13,18 @@ export default function LoginPage() {
     const [form, setForm] = useState({});
     const [processing, setProcessing] = useState(false);
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
-    const { tokenStored } = useContext(TokenContext);
+    const { tokenStored, setTokenStored } = useContext(TokenContext);
+
+    useEffect(() => {
+        if (localStorage.getItem('userData') !== null) {
+            const localData = JSON.parse(localStorage.getItem('userData'));
+            setUserInfo({ ...userInfo, ...localData });
+            setTokenStored(true);
+        }
+    }, []);
     useEffect(() => {
         setForm({ email: '', password: '' });
-        if(userInfo.token){
+        if (userInfo.token) {
             navigate('/hoje');
         }
     }, [tokenStored]);

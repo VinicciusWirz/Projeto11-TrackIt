@@ -6,7 +6,7 @@ export default function Header() {
   const { userInfo } = useContext(UserInfoContext);
 
   function logout() {
-    const message = 'Você quer fazer logoff?'
+    const message = 'Você quer fazer logoff?';
     if (window.confirm(message)) {
       localStorage.clear();
       window.location.reload();
