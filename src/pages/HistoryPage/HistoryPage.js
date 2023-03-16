@@ -74,6 +74,6 @@ export default function HistoryPage() {
             {modal && <EventInfoModal setModal={setModal} modal={modal} />}
 
         </PageContainer>
-    )
+    );
 }
 

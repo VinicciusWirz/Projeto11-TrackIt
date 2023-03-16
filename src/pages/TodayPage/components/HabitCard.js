@@ -1,4 +1,4 @@
-import checkMark from "../../../assets/check.svg"
+import checkMark from "../../../assets/check.svg";
 import { CheckBox, HabitContent, SequenceStyle } from "../styled";
 
 export default function HabitCard({ cardInfo, handleToggleCheckbox }) {

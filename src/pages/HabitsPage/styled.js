@@ -108,8 +108,10 @@ export const ButtonWrapper = styled.div`
         line-height: 20px;
         text-align: center;
         color: #FFFFFF;
+        cursor: pointer;
         &:disabled{
             opacity: 0.7;
+            cursor: default;
         }
     }
     button:nth-child(1){
@@ -135,6 +137,7 @@ export const BtnDays = styled.div`
     font-size: 20px;
     line-height: 25px;
     color: ${({ selected }) => selected ? '#FFFFFF' : '#DBDBDB'};
+    cursor: ${({cursor}) => cursor};
 `;
 
 export const HabitList = styled.ul`

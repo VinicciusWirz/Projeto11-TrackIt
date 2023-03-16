@@ -44,9 +44,11 @@ const HeaderStyle = styled.header`
   line-height: 49px;
   color: #FFFFFF;
   padding: 0 18px;
+  cursor: default;
   img{
     width: 51px;
     height: 51px;
     border-radius: 50%;
+    cursor: pointer;
   }
 `;

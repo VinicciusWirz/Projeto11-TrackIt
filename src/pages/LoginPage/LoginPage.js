@@ -1,5 +1,5 @@
 import axios from "axios";
-import logo from "../../assets/trackitLogo.svg"
+import logo from "../../assets/trackitLogo.svg";
 import { url } from "../../constants/url";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
@@ -36,7 +36,7 @@ export default function LoginPage() {
             });
     }
     function handleInputChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value })
+        setForm({ ...form, [e.target.name]: e.target.value });
     }
     return (
         <MainStyle>

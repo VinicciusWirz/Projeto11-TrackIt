@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import styled from "styled-components";
-import trashIcon from "../../../assets/trash.svg"
+import trashIcon from "../../../assets/trash.svg";
 import days from "../../../constants/days";
 import { url } from "../../../constants/url";
 import UserInfoContext from "../../../contexts/UserInfoContext";
@@ -17,7 +17,7 @@ export default function HabitCard(props) {
                 }
             };
             axios.delete(`${url}/habits/${id}`, config)
-                .then(() => setUserInfo({ ...userInfo, habits: [...userInfo.habits.filter(h => h.id != id)] }))
+                .then(() => setUserInfo({ ...userInfo, habits: [...userInfo.habits.filter(h => h.id !== id)] }))
                 .catch(err => alert(err.response.data.message));
         }
     }
@@ -31,7 +31,15 @@ export default function HabitCard(props) {
                 <img src={trashIcon} onClick={() => deleteHabit(props.card.id)} data-test="habit-delete-btn" />
             </HabitInfo>
             <ButtonsWrapper>
-                {days.map((d, i) => <BtnDays key={i} id={i} selected={props.card.days.includes(i)} data-test="habit-day">{d}</BtnDays>)}
+                {days.map((d, i) => <BtnDays
+                    key={i}
+                    id={i}
+                    selected={props.card.days.includes(i)}
+                    cursor='default'
+                    data-test="habit-day"
+                >
+                    {d}
+                </BtnDays>)}
             </ButtonsWrapper>
         </HabitWrapper>
     );
@@ -43,6 +51,7 @@ const HabitInfo = styled.div`
     align-items: center;
     img{
         align-self: flex-start;
+        cursor: pointer;
     }
 `;
 

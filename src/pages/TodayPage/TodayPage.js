@@ -20,14 +20,16 @@ export default function TodayPage() {
             "Authorization": `Bearer ${userInfo.token}`
         }
     };
+    const percentage = 100;
+    const decimal = 10;
     useEffect(() => {
         const month = dayjs().month() + 1;
         const weekday = weekdayList[dayjs().locale('pt-br').day()];
-        const calendarDate = `${dayjs().date()}/${month < 10 ? `0${month}` : month}`;
-        if(userInfo.token){
+        const calendarDate = `${dayjs().date()}/${month < decimal ? `0${month}` : month}`;
+        if (userInfo.token) {
             axios.get(`${url}/habits/today`, config)
                 .then(res => {
-                    const progress = (res.data.filter(h => h.done === true).length * 100) / res.data.length;
+                    const progress = (res.data.filter(h => h.done === true).length * percentage) / res.data.length;
                     setUserInfo({ ...userInfo, date: { weekday, calendarDate }, todayHabits: res.data, progress });
                     setLoading(false);
                 })
@@ -58,7 +60,7 @@ export default function TodayPage() {
                     setUserInfo(updatedHabits);
                 });
         }
-        const progress = (updatedHabits.todayHabits.filter(h => h.done === true).length * 100) / updatedHabits.todayHabits.length;
+        const progress = (updatedHabits.todayHabits.filter(h => h.done === true).length * percentage) / updatedHabits.todayHabits.length;
         setUserInfo({ ...userInfo, progress });
     }
 

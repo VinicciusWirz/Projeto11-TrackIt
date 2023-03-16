@@ -1,5 +1,5 @@
 import { InputsStyles, MainStyle } from "../../style/SignInSignUp";
-import logo from "../../assets/trackitLogo.svg"
+import logo from "../../assets/trackitLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";

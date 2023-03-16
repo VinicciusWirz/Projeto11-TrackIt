@@ -1,21 +1,19 @@
 import { useState } from "react";
-import { AddHabit, BtnDays, BtnDaysWrapper, ButtonWrapper, HabitList, LoadingIcon, MenuAddHabitStyle, PageContainer } from "./styled";
+import { AddHabit, HabitList, LoadingIcon, PageContainer } from "./styled";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import UserInfoContext from "../../contexts/UserInfoContext";
 import { url } from "../../constants/url";
 import HabitCard from "./components/HabitCard";
-import days from "../../constants/days";
 import { ThreeDots } from "react-loader-spinner";
 import TokenContext from "../../contexts/TokenContext";
+import MenuAddHabit from "./components/MenuAddHabit";
 
 export default function HabitsPage() {
     const [addNewHabit, setAddNewHabit] = useState(false);
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
     const { tokenStored } = useContext(TokenContext);
-    const [form, setForm] = useState({ name: '', days: [] });
     const [loadingPage, setLoadingPage] = useState(false);
-    const [loadingForm, setLoadingForm] = useState(false);
     const habitsUrl = `${url}/habits`;
     const config = {
         headers: {
@@ -36,42 +34,6 @@ export default function HabitsPage() {
 
     }, [tokenStored]);
 
-    function handleAddhabbitSubmit(e) {
-        e.preventDefault();
-        if (!(form.name.trim().length === 0)) {
-            setLoadingForm(true);
-            axios.post(habitsUrl, form, config)
-                .then(res => {
-                    setForm({ name: '', days: [] });
-                    setUserInfo({ ...userInfo, habits: [...userInfo.habits, res.data] });
-                    setAddNewHabit(false);
-                    setLoadingForm(false);
-                })
-                .catch(err => {
-                    err.response.data.message === "Campo Header inválido!" ? alert('Sessão expirada') : alert(err.response.data.message);
-                    setLoadingForm(false);
-                });
-        } else {
-            alert('O hábito não pode estar em branco');
-        }
-    }
-
-    function addFormSelectDay(e) {
-        const index = Number(e.target.id);
-        let updatedForm = {};
-        if (form.days.includes(index)) {
-            updatedForm = { ...form, days: form.days.filter(i => i !== index) };
-            setForm(updatedForm);
-        } else {
-            updatedForm = { ...form, days: [...form.days, index] };
-            setForm(updatedForm);
-        }
-    }
-
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    }
-
     return (
         <PageContainer>
             <nav>
@@ -79,38 +41,7 @@ export default function HabitsPage() {
                 <AddHabit onClick={() => setAddNewHabit(!addNewHabit)} data-test="habit-create-btn">+</AddHabit>
             </nav>
             <div>
-                {addNewHabit && (
-                    <MenuAddHabitStyle onSubmit={handleAddhabbitSubmit} data-test="habit-create-container">
-                        <div>
-                            <input
-                                placeholder="nome do hábito"
-                                type='text'
-                                name='name'
-                                onChange={handleChange}
-                                value={form.name}
-                                disabled={loadingForm}
-                                data-test="habit-name-input"
-                            />
-                            <BtnDaysWrapper>
-                                {days.map((d, i) => <BtnDays
-                                    key={i}
-                                    id={i}
-                                    selected={form.days.includes(i)}
-                                    onClick={addFormSelectDay}
-                                    disabled={loadingForm}
-                                    data-test="habit-day"
-                                >
-                                    {d}
-                                </BtnDays>)
-                                }
-                            </BtnDaysWrapper>
-                        </div>
-                        <ButtonWrapper>
-                            <button type="reset" disabled={loadingForm} onClick={() => setAddNewHabit(!addNewHabit)} data-test="habit-create-cancel-btn">Cancelar</button>
-                            <button type="submit" disabled={loadingForm} data-test="habit-create-save-btn">{loadingForm ? <ThreeDots color='#ffff' height='11px' /> : 'Salvar'}</button>
-                        </ButtonWrapper>
-                    </MenuAddHabitStyle>
-                )}
+                {addNewHabit && <MenuAddHabit addNewHabit={addNewHabit} setAddNewHabit={setAddNewHabit} habitsUrl={habitsUrl} />}
                 <HabitList>
                     {loadingPage ? <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon> :
                         userInfo.habits.length === 0 && 'Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!'}

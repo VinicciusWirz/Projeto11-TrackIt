@@ -52,7 +52,7 @@ export default function Menu() {
                 </Link>
             </div>
         </MenuStyle>
-    )
+    );
 }
 
 function Progress(props) {
@@ -67,7 +67,7 @@ function Progress(props) {
             }}>
             {props.children}
         </div>
-    )
+    );
 }
 
 const MenuStyle = styled.footer`

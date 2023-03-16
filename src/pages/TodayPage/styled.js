@@ -62,7 +62,8 @@ export const CheckBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `;
 export const SequenceStyle = styled.span`
-color:${({ done }) => done};
+    color:${({ done }) => done};
 `;
