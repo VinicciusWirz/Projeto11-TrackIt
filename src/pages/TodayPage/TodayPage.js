@@ -9,9 +9,11 @@ import { url } from "../../constants/url";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { Title, Progress } from "./styled";
+import TokenContext from "../../contexts/TokenContext";
 
 export default function TodayPage() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
+    const { tokenStored } = useContext(TokenContext);
     const [loading, setLoading] = useState(true);
     const config = {
         headers: {
@@ -22,14 +24,16 @@ export default function TodayPage() {
         const month = dayjs().month() + 1;
         const weekday = weekdayList[dayjs().locale('pt-br').day()];
         const calendarDate = `${dayjs().date()}/${month < 10 ? `0${month}` : month}`;
-        axios.get(`${url}/habits/today`, config)
-            .then(res => {
-                const progress = (res.data.filter(h => h.done === true).length * 100) / res.data.length;
-                setUserInfo({ ...userInfo, date: { weekday, calendarDate }, todayHabits: res.data, progress });
-                setLoading(false);
-            })
-            .catch(err => alert(err.response.data.message));
-    }, []);
+        if(userInfo.token){
+            axios.get(`${url}/habits/today`, config)
+                .then(res => {
+                    const progress = (res.data.filter(h => h.done === true).length * 100) / res.data.length;
+                    setUserInfo({ ...userInfo, date: { weekday, calendarDate }, todayHabits: res.data, progress });
+                    setLoading(false);
+                })
+                .catch(err => alert(err.response.data.message));
+        }
+    }, [tokenStored]);
 
     function handleToggleCheckbox(id, done) {
         const newHabits = [...userInfo.todayHabits];

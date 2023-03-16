@@ -7,10 +7,12 @@ import { url } from "../../constants/url";
 import HabitCard from "./components/HabitCard";
 import days from "../../constants/days";
 import { ThreeDots } from "react-loader-spinner";
+import TokenContext from "../../contexts/TokenContext";
 
 export default function HabitsPage() {
     const [addNewHabit, setAddNewHabit] = useState(false);
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
+    const { tokenStored } = useContext(TokenContext);
     const [form, setForm] = useState({ name: '', days: [] });
     const [loadingPage, setLoadingPage] = useState(false);
     const [loadingForm, setLoadingForm] = useState(false);
@@ -22,19 +24,21 @@ export default function HabitsPage() {
     };
 
     useEffect(() => {
-        setLoadingPage(true);
-        axios.get(habitsUrl, config)
-            .then(res => {
-                setUserInfo({ ...userInfo, habits: res.data });
-                setLoadingPage(false);
-            })
-            .catch(err => alert(err.response.data.message));
+        if (userInfo.token) {
+            setLoadingPage(true);
+            axios.get(habitsUrl, config)
+                .then(res => {
+                    setUserInfo({ ...userInfo, habits: res.data });
+                    setLoadingPage(false);
+                })
+                .catch(err => alert(err.response.data.message));
+        }
 
-    }, []);
+    }, [tokenStored]);
 
     function handleAddhabbitSubmit(e) {
         e.preventDefault();
-        if(!(form.name.trim().length === 0)){
+        if (!(form.name.trim().length === 0)) {
             setLoadingForm(true);
             axios.post(habitsUrl, form, config)
                 .then(res => {
@@ -80,7 +84,7 @@ export default function HabitsPage() {
                         <div>
                             <input
                                 placeholder="nome do hábito"
-                                required type='text'
+                                type='text'
                                 name='name'
                                 onChange={handleChange}
                                 value={form.name}

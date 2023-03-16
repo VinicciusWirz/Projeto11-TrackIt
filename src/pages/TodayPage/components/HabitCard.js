@@ -11,10 +11,14 @@ export default function HabitCard({ cardInfo, handleToggleCheckbox }) {
                     {name}
                 </h3>
                 <p data-test="today-habit-sequence">
-                    Sequência atual: <SequenceStyle done={done ? '#8FC549' : '#666666'}>{currentSequence} {currentSequence > 1 ? 'dias' : 'dia'}</SequenceStyle>
+                    Sequência atual: <SequenceStyle done={done ? '#8FC549' : '#666666'}>
+                        {currentSequence} {currentSequence > 1 ? 'dias' : 'dia'}
+                    </SequenceStyle>
                 </p>
                 <p data-test="today-habit-record">
-                    Seu recorde: <SequenceStyle done={highestSequence === currentSequence ? '#8FC549' : '#666666'}>{highestSequence} {highestSequence > 1 ? 'dias' : 'dia'}</SequenceStyle>
+                    Seu recorde: <SequenceStyle done={highestSequence === currentSequence ? '#8FC549' : '#666666'}>
+                        {highestSequence} {highestSequence > 1 ? 'dias' : 'dia'}
+                    </SequenceStyle>
                 </p>
             </div>
 

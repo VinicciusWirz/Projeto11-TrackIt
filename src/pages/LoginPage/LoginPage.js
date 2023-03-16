@@ -6,21 +6,20 @@ import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { InputsStyles, MainStyle } from "../../style/SignInSignUp";
 import UserInfoContext from "../../contexts/UserInfoContext";
+import TokenContext from "../../contexts/TokenContext";
 
 export default function LoginPage() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [form, setForm] = useState({});
-    const [processing, setProcessing] = useState(false)
+    const [processing, setProcessing] = useState(false);
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
+    const { tokenStored } = useContext(TokenContext);
     useEffect(() => {
         setForm({ email: '', password: '' });
-        if(localStorage.getItem('userData') !== null){
-            const localData = JSON.parse(localStorage.getItem('userData'));
-            console.log(localData)
-            setUserInfo({ ...userInfo, ...localData });
+        if(userInfo.token){
             navigate('/hoje');
         }
-    }, []);
+    }, [tokenStored]);
     function handleLoginSubmit(e) {
         e.preventDefault();
         setProcessing(true);
@@ -30,7 +29,6 @@ export default function LoginPage() {
                 setUserInfo({ ...userInfo, name: res.data.name, image: res.data.image, token: res.data.token });
                 const localData = JSON.stringify({ name: res.data.name, image: res.data.image, token: res.data.token });
                 localStorage.setItem('userData', localData);
-                
             })
             .catch(err => {
                 alert(err.response.data.message);
