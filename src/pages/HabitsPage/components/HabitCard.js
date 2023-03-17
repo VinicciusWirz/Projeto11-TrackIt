@@ -7,8 +7,9 @@ import { url } from "../../../constants/url";
 import UserInfoContext from "../../../contexts/UserInfoContext";
 import { BtnDays } from "../styled";
 
-export default function HabitCard(props) {
-    const { userInfo, setUserInfo } = useContext(UserInfoContext);
+export default function HabitCard({ card, setHabits, habits }) {
+    const { userInfo } = useContext(UserInfoContext);
+
     function deleteHabit(id) {
         if (window.confirm('Você quer realmente deletar o hábito?')) {
             const config = {
@@ -17,7 +18,7 @@ export default function HabitCard(props) {
                 }
             };
             axios.delete(`${url}/habits/${id}`, config)
-                .then(() => setUserInfo({ ...userInfo, habits: [...userInfo.habits.filter(h => h.id !== id)] }))
+                .then(() => setHabits(habits.filter(h => h.id !== id)))
                 .catch(err => alert(err.response.data.message));
         }
     }
@@ -26,15 +27,15 @@ export default function HabitCard(props) {
         <HabitWrapper data-test="habit-container">
             <HabitInfo>
                 <div data-test="habit-name">
-                    {props.card.name}
+                    {card.name}
                 </div>
-                <img src={trashIcon} onClick={() => deleteHabit(props.card.id)} data-test="habit-delete-btn" />
+                <img src={trashIcon} onClick={() => deleteHabit(card.id)} data-test="habit-delete-btn" />
             </HabitInfo>
             <ButtonsWrapper>
                 {days.map((d, i) => <BtnDays
                     key={i}
                     id={i}
-                    selected={props.card.days.includes(i)}
+                    selected={card.days.includes(i)}
                     cursor='default'
                     data-test="habit-day"
                 >

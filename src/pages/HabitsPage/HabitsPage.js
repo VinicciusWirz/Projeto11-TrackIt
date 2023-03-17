@@ -57,7 +57,7 @@ export default function HabitsPage() {
                         <HabitList>
                             {loadingPage ? <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon> :
                                 habits.length === 0 && 'Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!'}
-                            {habits.length > 0 && habits.map(h => <HabitCard key={h.id} card={h} />)}
+                            {habits.length > 0 && habits.map(h => <HabitCard key={h.id} card={h} habits={habits} setHabits={setHabits} />)}
                         </HabitList>
                     </div>
                 </Content>
