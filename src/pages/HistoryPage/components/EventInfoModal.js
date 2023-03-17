@@ -1,5 +1,4 @@
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import styled from "styled-components";
 import checkMark from "../../../assets/check.svg";
 import weekday from "../../../constants/weekday";
 import { CheckBox, HabitCard, HabitList, ModalContainer, ModalStyle, ModalTitle, Result, ResultMessage } from "../styled";

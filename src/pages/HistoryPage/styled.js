@@ -79,15 +79,17 @@ export const ModalStyle = styled.div`
     left: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    padding-top: 105px;
+    /* align-items: center; */
 `;
 export const HabitList = styled.ul`
     width: 100%;
-    max-height: 20%;
+    max-height: 100%;
     overflow-y: scroll;
     margin-top: 55px;
     padding-top: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    min-height: 115px;
 
     &::-webkit-scrollbar {
         width: 5px;
@@ -115,9 +117,16 @@ export const ModalContainer = styled.section`
     align-items: center;
     padding: 15px;
     position: relative;
-    max-height: 55%;
+    height: 500px;
+    max-height: 65%;
     scrollbar-width:none;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        width: 0px;
+        display: none;
+    }
+
     @media (min-width: 375px) {
         width: 375px;
     }

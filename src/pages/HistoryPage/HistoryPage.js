@@ -3,7 +3,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { PageContainer } from "../HabitsPage/styled";
+import { Content, PageContainer } from "../HabitsPage/styled";
 import { Day, HistoryContainer, Title } from "./styled";
 import { url } from "../../constants/url";
 import UserInfoContext from "../../contexts/UserInfoContext";
@@ -64,19 +64,21 @@ export default function HistoryPage() {
     return (
         <>
             <Header />
-            <PageContainer>
-                <Title>
-                    Histórico
-                </Title>
-                <HistoryContainer data-test="calendar">
-                    <Calendar
-                        calendarType={'US'}
-                        formatDay={(locale, date) => formatDay(date)}
-                        onClickDay={(value) => showDayInfo(value)}
-                    />
-                </HistoryContainer>
-                {modal && <EventInfoModal setModal={setModal} modal={modal} />}
 
+            <PageContainer>
+                <Content>
+                    <Title>
+                        Histórico
+                    </Title>
+                    <HistoryContainer data-test="calendar">
+                        <Calendar
+                            calendarType={'US'}
+                            formatDay={(locale, date) => formatDay(date)}
+                            onClickDay={(value) => showDayInfo(value)}
+                        />
+                    </HistoryContainer>
+                    {modal && <EventInfoModal setModal={setModal} modal={modal} />}
+                </Content>
             </PageContainer>
             <Menu />
         </>

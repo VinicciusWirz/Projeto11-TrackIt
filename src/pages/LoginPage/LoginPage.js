@@ -34,8 +34,8 @@ export default function LoginPage() {
         axios.post(`${url}/auth/login`, form)
             .then(res => {
                 navigate('/hoje');
-                setUserInfo({ ...userInfo, name: res.data.name, image: res.data.image, token: res.data.token });
-                const localData = JSON.stringify({ name: res.data.name, image: res.data.image, token: res.data.token });
+                setUserInfo({ ...userInfo, image: res.data.image, token: res.data.token });
+                const localData = JSON.stringify({ ...userInfo, image: res.data.image, token: res.data.token });
                 localStorage.setItem('userData', localData);
             })
             .catch(err => {

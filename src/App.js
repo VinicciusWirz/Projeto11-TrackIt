@@ -9,7 +9,7 @@ import { useState } from "react";
 import TokenContext from "./contexts/TokenContext";
 
 export default function App() {
-  const [userInfo, setUserInfo] = useState({ name: '', image: '', token: '', habits: [], todayHabits: [], progress: 0 });
+  const [userInfo, setUserInfo] = useState({ image: '', token: ''});
   const [tokenStored, setTokenStored] = useState(false);
 
   return (

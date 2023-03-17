@@ -5,7 +5,6 @@ export const PageContainer = styled.div`
     width: 100%;
     height: 92vh;
     margin-top: 70px;
-    padding: 22px 17px;
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
@@ -19,22 +18,28 @@ export const PageContainer = styled.div`
         margin-bottom: 28px;
     }
 `;
+export const Content = styled.div`
+    padding-bottom: 20px;
+    background-color:#F2F2F2;
+    width: 100%;
+    padding: 22px 17px;
+`;
 export const AddHabit = styled.button`
-            width: 40px;
-            height: 35px;
-            background: #52B6FF;
-            border-radius: 5px;
-            border: none;
-            font-family: 'Lexend Deca';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 27px;
-            text-align: center;
-            padding-bottom: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #FFFFFF;
+    width: 40px;
+    height: 35px;
+    background: #52B6FF;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    text-align: center;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
 `;
 
 export const MenuAddHabitStyle = styled.form`
@@ -68,11 +73,6 @@ export const MenuAddHabitStyle = styled.form`
         &:disabled{
             background-color: #F2F2F2;
             color: #B3B3B3;
-        }
-    }
-    div:nth-child(1){
-        button{
-
         }
     }
 `;
@@ -137,7 +137,7 @@ export const BtnDays = styled.div`
     font-size: 20px;
     line-height: 25px;
     color: ${({ selected }) => selected ? '#FFFFFF' : '#DBDBDB'};
-    cursor: ${({cursor}) => cursor};
+    cursor: ${({ cursor }) => cursor};
 `;
 
 export const HabitList = styled.ul`
@@ -147,6 +147,7 @@ export const HabitList = styled.ul`
     font-size: 18px;
     line-height: 22px;
     color: #666666;
+    padding-bottom: 80px;
 `;
 
 export const LoadingIcon = styled.div`
@@ -155,3 +156,4 @@ export const LoadingIcon = styled.div`
     justify-content: center;
     align-items: center;
 `;
+

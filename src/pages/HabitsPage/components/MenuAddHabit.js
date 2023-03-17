@@ -6,8 +6,8 @@ import UserInfoContext from "../../../contexts/UserInfoContext";
 import { ThreeDots } from "react-loader-spinner";
 
 
-export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl }) {
-    const { userInfo, setUserInfo } = useContext(UserInfoContext);
+export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, habits, setHabits }) {
+    const { userInfo } = useContext(UserInfoContext);
     const [form, setForm] = useState({ name: '', days: [] });
     const [loadingForm, setLoadingForm] = useState(false);
     const config = {
@@ -23,7 +23,7 @@ export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl })
             axios.post(habitsUrl, form, config)
                 .then(res => {
                     setForm({ name: '', days: [] });
-                    setUserInfo({ ...userInfo, habits: [...userInfo.habits, res.data] });
+                    setHabits([...habits, res.data]);
                     setAddNewHabit(false);
                     setLoadingForm(false);
                 })
