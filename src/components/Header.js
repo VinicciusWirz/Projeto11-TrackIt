@@ -54,7 +54,6 @@ const HeaderStyle = styled.header`
   position: fixed;
   z-index: 2;
   background: #126BA5;
-  /* height: 70px; */
   left: 0px;
   top: 0px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
@@ -69,7 +68,6 @@ const HeaderStyle = styled.header`
   color: #FFFFFF;
   cursor: default;
   section{
-    /* height: 100%; */
     width: 100%;
     background-color: red;
     display: flex;
@@ -103,8 +101,8 @@ const DropdownMenu = styled.div`
   padding: 3px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   padding-right: 20px;
-  transition: transform 0.5s ease-in;
   border-radius: 0px 0px 5px 5px;
+  transition: transform 0.5s ease-in;
   transform: translateY(${({ menuOptions }) => menuOptions ? '0%' : '-200%'});
   p{
     align-self: flex-end;

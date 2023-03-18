@@ -27,10 +27,11 @@ export const HabitContent = styled.li`
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    div:nth-child(1){
+    article:nth-child(1){
         display: flex;
         flex-direction: column;
-        max-width: 72%;
+        max-width: 200px;
+        width: 200px;
     }
     h3{
         font-family: 'Lexend Deca';
@@ -63,7 +64,23 @@ export const CheckBox = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    align-self: center;
 `;
 export const SequenceStyle = styled.span`
     color:${({ done }) => done};
+`;
+
+export const LoadingFromServer = styled.section`
+    width: 69px;
+    max-width: 69px;
+    height: 69px;
+    max-height: 69px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 `;

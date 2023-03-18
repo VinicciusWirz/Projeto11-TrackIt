@@ -16,9 +16,9 @@ import Menu from "../../components/Menu";
 export default function TodayPage() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
     const { tokenStored } = useContext(TokenContext);
-    const [loadData, setLoadData] = useState(false);
     const [habits, setHabits] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [renderProgress, setRenderProgress] = useState();
     const percentage = 100;
     const decimal = 10;
     const month = dayjs().month() + 1;
@@ -37,11 +37,12 @@ export default function TodayPage() {
                     const progress = (res.data.filter(h => h.done).length * percentage) / res.data.length;
                     setUserInfo({ ...userInfo, progress });
                     setHabits(res.data);
+                    setRenderProgress(res.data.map(({ id, done }) => ({ id, done })));
                     setLoading(false);
                 })
                 .catch(err => alert(err.response.data.message));
         }
-    }, [tokenStored, loadData]);
+    }, [tokenStored]);
 
     return (
         <>
@@ -70,8 +71,7 @@ export default function TodayPage() {
                                     cardInfo={h}
                                     habits={habits}
                                     setHabits={setHabits}
-                                    loadData={loadData}
-                                    setLoadData={setLoadData}
+                                    renderProgress={renderProgress}
                                 />)}
                             </HabitList>
                         </>
