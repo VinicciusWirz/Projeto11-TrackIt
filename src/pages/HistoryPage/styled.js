@@ -80,7 +80,6 @@ export const ModalStyle = styled.div`
     display: flex;
     justify-content: center;
     padding-top: 105px;
-    /* align-items: center; */
 `;
 export const HabitList = styled.ul`
     width: 100%;
@@ -115,10 +114,11 @@ export const ModalContainer = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     padding: 15px;
     position: relative;
-    height: 500px;
-    max-height: 65%;
+    min-height: 500px;
+    max-height: 75%;
     scrollbar-width:none;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     overflow-y: scroll;

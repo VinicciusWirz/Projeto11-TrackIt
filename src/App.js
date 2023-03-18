@@ -9,7 +9,7 @@ import { useState } from "react";
 import TokenContext from "./contexts/TokenContext";
 
 export default function App() {
-  const [userInfo, setUserInfo] = useState({ image: '', token: ''});
+  const [userInfo, setUserInfo] = useState({ image: '', token: '', progress: 0 });
   const [tokenStored, setTokenStored] = useState(false);
 
   return (
@@ -25,6 +25,6 @@ export default function App() {
           </Routes>
         </BrowserRouter>
       </TokenContext.Provider>
-    </UserInfoContext.Provider >
+    </UserInfoContext.Provider>
   );
 }

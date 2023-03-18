@@ -1,19 +1,34 @@
 import { InputsStyles, MainStyle } from "../../style/SignInSignUp";
 import logo from "../../assets/trackitLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { url } from "../../constants/url";
 import { ThreeDots } from "react-loader-spinner";
+import UserInfoContext from "../../contexts/UserInfoContext";
+import TokenContext from "../../contexts/TokenContext";
 
 export default function SignUpPage() {
     const navigate = useNavigate();
     const [form, setForm] = useState({});
     const [processing, setProcessing] = useState(false);
+    const { userInfo, setUserInfo } = useContext(UserInfoContext);
+    const { tokenStored, setTokenStored } = useContext(TokenContext);
+
+    useEffect(() => {
+        if (localStorage.getItem('userData') !== null) {
+            const localData = JSON.parse(localStorage.getItem('userData'));
+            setUserInfo({ ...userInfo, ...localData });
+            setTokenStored(true);
+        }
+    }, []);
 
     useEffect(() => {
         setForm({ email: '', password: '', name: '', image: '' });
-    }, []);
+        if (tokenStored) {
+            navigate('/');
+        }
+    }, [tokenStored]);
 
     function handleSingInSubmit(e) {
         e.preventDefault();

@@ -22,20 +22,22 @@ export default function LoginPage() {
             setTokenStored(true);
         }
     }, []);
+
     useEffect(() => {
         setForm({ email: '', password: '' });
         if (userInfo.token) {
             navigate('/hoje');
         }
     }, [tokenStored]);
+
     function handleLoginSubmit(e) {
         e.preventDefault();
         setProcessing(true);
         axios.post(`${url}/auth/login`, form)
             .then(res => {
                 navigate('/hoje');
-                setUserInfo({ ...userInfo, image: res.data.image, token: res.data.token });
-                const localData = JSON.stringify({ ...userInfo, image: res.data.image, token: res.data.token });
+                setUserInfo({ image: res.data.image, token: res.data.token, name: res.data.name, progress: 0 });
+                const localData = JSON.stringify({ image: res.data.image, token: res.data.token, name: res.data.name });
                 localStorage.setItem('userData', localData);
             })
             .catch(err => {

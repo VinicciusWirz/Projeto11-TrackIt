@@ -16,6 +16,7 @@ import Menu from "../../components/Menu";
 export default function TodayPage() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
     const { tokenStored } = useContext(TokenContext);
+    const [loadData, setLoadData] = useState(false);
     const [habits, setHabits] = useState([]);
     const [loading, setLoading] = useState(true);
     const percentage = 100;
@@ -40,7 +41,7 @@ export default function TodayPage() {
                 })
                 .catch(err => alert(err.response.data.message));
         }
-    }, [tokenStored]);
+    }, [tokenStored, loadData]);
 
     return (
         <>
@@ -69,6 +70,8 @@ export default function TodayPage() {
                                     cardInfo={h}
                                     habits={habits}
                                     setHabits={setHabits}
+                                    loadData={loadData}
+                                    setLoadData={setLoadData}
                                 />)}
                             </HabitList>
                         </>

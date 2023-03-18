@@ -8,16 +8,18 @@ import TokenContext from "../contexts/TokenContext";
 
 export default function Menu() {
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
-    const { setTokenStored } = useContext(TokenContext);
+    const { tokenStored, setTokenStored } = useContext(TokenContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (localStorage.getItem('userData') !== null) {
-            const localData = JSON.parse(localStorage.getItem('userData'));
-            setUserInfo({ ...userInfo, ...localData });
-            setTokenStored(true);
-        } else {
-            navigate('/');
+        if (!tokenStored) {
+            if (localStorage.getItem('userData') !== null) {
+                const localData = JSON.parse(localStorage.getItem('userData'));
+                setUserInfo({ ...userInfo, ...localData });
+                setTokenStored(true);
+            } else {
+                navigate('/');
+            }
         }
     }, []);
 

@@ -5,7 +5,7 @@ import { url } from "../../../constants/url";
 import UserInfoContext from "../../../contexts/UserInfoContext";
 import { CheckBox, HabitContent, SequenceStyle } from "../styled";
 
-export default function HabitCard({ cardInfo, habits, setHabits }) {
+export default function HabitCard({ cardInfo, habits, setHabits, setLoadData, loadData }) {
     const { currentSequence, done, highestSequence, id, name } = cardInfo;
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
     const [cardContent, setCardContent] = useState({ done, currentSequence });
@@ -28,7 +28,10 @@ export default function HabitCard({ cardInfo, habits, setHabits }) {
                 };
                 setCardContent(updatedCard);
                 axios.post(`${urlPost}/check`, {}, config)
-                    .then(() => setLoading(false))
+                    .then(() => {
+                        setLoading(false);
+                        setLoadData(!loadData);
+                    })
                     .catch(err => {
                         alert(err.response.data.message);
                         setLoading(false);
@@ -40,16 +43,19 @@ export default function HabitCard({ cardInfo, habits, setHabits }) {
                 };
                 setCardContent(updatedCard);
                 axios.post(`${urlPost}/uncheck`, {}, config)
-                    .then(() => setLoading(false))
+                    .then(() => {
+                        setLoading(false);
+                        setLoadData(!loadData);
+                    })
                     .catch(err => {
                         alert(err.response.data.message);
                         setLoading(false);
                     });
             }
             const updatedArray = [...habits].map((e) => e.id === id ? { ...e, ...updatedCard } : e);
-            const progressUpdate = (updatedArray.filter((e) => e.done).length * percentage) / habits.length;
+            const progress = (updatedArray.filter((e) => e.done).length * percentage) / habits.length;
             setHabits(updatedArray);
-            setUserInfo({ ...userInfo, progress: progressUpdate });
+            setUserInfo({ ...userInfo, progress });
         }
     }
 
@@ -65,7 +71,7 @@ export default function HabitCard({ cardInfo, habits, setHabits }) {
                     </SequenceStyle>
                 </p>
                 <p data-test="today-habit-record">
-                    Seu recorde: <SequenceStyle done={highestSequence === cardContent.currentSequence ? '#8FC549' : '#666666'}>
+                    Seu recorde: <SequenceStyle done={(cardContent.currentSequence === highestSequence && highestSequence !== 0) ? '#8FC549' : '#666666'}>
                         {highestSequence} {highestSequence > 1 ? 'dias' : 'dia'}
                     </SequenceStyle>
                 </p>
