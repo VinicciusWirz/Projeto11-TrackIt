@@ -49,6 +49,7 @@ export default function HabitCard({ cardInfo, habits, setHabits, renderProgress 
                 const updatedFromServer = res.data.find((h) => h.id === id);
                 savedHabit.highestSequence = updatedFromServer.highestSequence;
                 savedHabit.done = updatedFromServer.done;
+                savedHabit.currentSequence = updatedFromServer.currentSequence;
                 setHabits(updatedHabitsArray);
                 setWaitingAnswer(false);
             })
