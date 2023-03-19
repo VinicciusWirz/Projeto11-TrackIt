@@ -36,7 +36,7 @@ export default function Menu() {
                     <Progress>
                         <CircularProgressbar
                             text='Hoje'
-                            value={userInfo.progress}
+                            value={isNaN(userInfo.progress) ? '0' : userInfo.progress}
                             backgroundPadding='6px'
                             styles={buildStyles({
                                 backgroundColor: '#52B6FF',

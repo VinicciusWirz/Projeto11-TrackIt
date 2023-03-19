@@ -6,6 +6,7 @@ import UserInfoContext from "../contexts/UserInfoContext";
 export default function Header() {
   const { userInfo } = useContext(UserInfoContext);
   const [menuOptions, setMenuOptions] = useState(false);
+  const defaultUserImage = "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"
 
   function logout() {
     const message = 'Você quer fazer logoff?';
@@ -20,9 +21,10 @@ export default function Header() {
       <section>
         <h1>TrackIt</h1>
         <img
-          src={userInfo.image ? userInfo.image : "https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg"}
+          src={userInfo.image ? userInfo.image : defaultUserImage}
           alt='usuário'
           onClick={() => setMenuOptions(!menuOptions)}
+          onError={(e)=> e.target.src = defaultUserImage}
         />
       </section>
       <DropdownMenu menuOptions={menuOptions}>

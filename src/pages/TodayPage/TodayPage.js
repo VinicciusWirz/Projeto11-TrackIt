@@ -34,7 +34,7 @@ export default function TodayPage() {
         if (userInfo.token) {
             axios.get(`${url}/habits/today`, config)
                 .then(res => {
-                    const progress = (res.data.filter(h => h.done).length * percentage) / res.data.length;
+                    const progress = Math.round((res.data.filter(h => h.done).length * percentage) / res.data.length);
                     setUserInfo({ ...userInfo, progress });
                     setHabits(res.data);
                     setRenderProgress(res.data.map(({ id, done }) => ({ id, done })));
