@@ -23,6 +23,7 @@ export default function HabitsPage() {
             "Authorization": `Bearer ${userInfo.token}`
         }
     };
+    const [form, setForm] = useState({ name: '', days: [] });
 
     useEffect(() => {
         if (userInfo.token) {
@@ -53,6 +54,8 @@ export default function HabitsPage() {
                             habitsUrl={habitsUrl}
                             habits={habits}
                             setHabits={setHabits}
+                            setForm={setForm}
+                            form={form}
                         />}
                         <HabitList>
                             {loadingPage ? <LoadingIcon><ThreeDots color='#126BA5' width='69px' id='loading' /></LoadingIcon> :

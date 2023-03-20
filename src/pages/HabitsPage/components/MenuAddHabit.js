@@ -6,9 +6,8 @@ import UserInfoContext from "../../../contexts/UserInfoContext";
 import { ThreeDots } from "react-loader-spinner";
 
 
-export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, habits, setHabits }) {
+export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, habits, setHabits, setForm, form }) {
     const { userInfo } = useContext(UserInfoContext);
-    const [form, setForm] = useState({ name: '', days: [] });
     const [loadingForm, setLoadingForm] = useState(false);
     const config = {
         headers: {
@@ -48,10 +47,6 @@ export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, h
         }
     }
 
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    }
-
     return (
         <>
             <MenuAddHabitStyle onSubmit={handleAddhabbitSubmit} data-test="habit-create-container">
@@ -60,7 +55,7 @@ export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, h
                         placeholder="nome do hábito"
                         type='text'
                         name='name'
-                        onChange={handleChange}
+                        onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
                         value={form.name}
                         disabled={loadingForm}
                         data-test="habit-name-input"
@@ -72,6 +67,7 @@ export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, h
                             selected={form.days.includes(i)}
                             onClick={addFormSelectDay}
                             disabled={loadingForm}
+                            type='button'
                             cursor='pointer'
                             data-test="habit-day"
                         >
@@ -82,7 +78,7 @@ export default function MenuAddHabit({ addNewHabit, setAddNewHabit, habitsUrl, h
                 </div>
                 <ButtonWrapper>
                     <button
-                        type="reset"
+                        type="button"
                         disabled={loadingForm}
                         onClick={() => setAddNewHabit(!addNewHabit)}
                         data-test="habit-create-cancel-btn"

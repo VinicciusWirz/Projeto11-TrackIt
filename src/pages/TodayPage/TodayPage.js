@@ -29,7 +29,6 @@ export default function TodayPage() {
             "Authorization": `Bearer ${userInfo.token}`
         }
     };
-
     useEffect(() => {
         if (userInfo.token) {
             axios.get(`${url}/habits/today`, config)
@@ -69,8 +68,6 @@ export default function TodayPage() {
                                 {habits.map(h => <HabitCard
                                     key={h.id}
                                     cardInfo={h}
-                                    habits={habits}
-                                    setHabits={setHabits}
                                     renderProgress={renderProgress}
                                 />)}
                             </HabitList>

@@ -79,17 +79,6 @@ export const MenuAddHabitStyle = styled.form`
 
 export const BtnDaysWrapper = styled.div`
     display: flex;
-    div{
-        border: 1px solid #D5D5D5;
-         border-radius: 5px;
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 20px;
-        line-height: 25px;
-        margin-top: 8px;
-        margin-right: 4px;
-    }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -121,7 +110,7 @@ export const ButtonWrapper = styled.div`
     }
 `;
 
-export const BtnDays = styled.div`
+export const BtnDays = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,6 +125,7 @@ export const BtnDays = styled.div`
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
+    margin-top: 8px;
     color: ${({ selected }) => selected ? '#FFFFFF' : '#DBDBDB'};
     cursor: ${({ cursor }) => cursor};
 `;

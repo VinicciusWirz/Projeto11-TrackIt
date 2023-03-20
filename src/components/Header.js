@@ -24,7 +24,7 @@ export default function Header() {
           src={userInfo.image ? userInfo.image : defaultUserImage}
           alt='usuário'
           onClick={() => setMenuOptions(!menuOptions)}
-          onError={(e)=> e.target.src = defaultUserImage}
+          onError={(e) => e.target.src = defaultUserImage}
         />
       </section>
       <DropdownMenu menuOptions={menuOptions}>
@@ -83,6 +83,7 @@ const HeaderStyle = styled.header`
     height: 51px;
     border-radius: 50%;
     cursor: pointer;
+    object-fit: cover;
   }
 `;
 const DropdownMenu = styled.div`

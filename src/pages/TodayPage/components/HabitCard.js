@@ -6,31 +6,30 @@ import { url } from "../../../constants/url";
 import UserInfoContext from "../../../contexts/UserInfoContext";
 import { CheckBox, HabitContent, LoadingFromServer, SequenceStyle } from "../styled";
 
-export default function HabitCard({ cardInfo, habits, setHabits, renderProgress }) {
+export default function HabitCard({ cardInfo, renderProgress }) {
     const { currentSequence, done, highestSequence, id, name } = cardInfo;
     const { userInfo, setUserInfo } = useContext(UserInfoContext);
-    const [cardContent, setCardContent] = useState({ done, currentSequence });
+    const [cardContent, setCardContent] = useState({ done, currentSequence, highestSequence });
     const [waitingAnswer, setWaitingAnswer] = useState(false);
     const config = {
         headers: {
             "Authorization": `Bearer ${userInfo.token}`
         }
     };
-
+    const percentage = 100;
     function handleToggleCheckbox() {
         const urlPost = `${url}/habits/${id}/${cardContent.done ? 'uncheck' : 'check'}`;
         const sequenceUpdate = cardContent.done ? (cardContent.currentSequence - 1) : (cardContent.currentSequence + 1);
-        const percentage = 100;
         let updatedCard = {};
         if (!waitingAnswer) {
-            updatedCard = { done: !cardContent.done, currentSequence: sequenceUpdate };
+            updatedCard = { ...cardContent, done: !cardContent.done, currentSequence: sequenceUpdate };
             const progressId = renderProgress.find(e => e.id === id);
             progressId.done = !cardContent.done;
             setWaitingAnswer(true);
             setCardContent(updatedCard);
             axios.post(urlPost, {}, config)
                 .then(() => {
-                    refreshCardRecord();
+                    refreshCardRecord(updatedCard);
                 })
                 .catch((err) => {
                     alert(err.response.data.message);
@@ -41,19 +40,17 @@ export default function HabitCard({ cardInfo, habits, setHabits, renderProgress 
         }
     }
 
-    function refreshCardRecord() {
+    function refreshCardRecord(updatedCard) {
         axios.get(`${url}/habits/today`, config)
-            .then((res) => {
-                const updatedHabitsArray = [...habits];
-                const savedHabit = updatedHabitsArray.find((h) => h.id === id);
-                const updatedFromServer = res.data.find((h) => h.id === id);
-                savedHabit.highestSequence = updatedFromServer.highestSequence;
-                savedHabit.done = updatedFromServer.done;
-                savedHabit.currentSequence = updatedFromServer.currentSequence;
-                setHabits(updatedHabitsArray);
+            .then(res => {
+                const objUpdated = res.data.find(h => h.id === id);
+                setCardContent({ ...updatedCard, highestSequence: objUpdated.highestSequence });
                 setWaitingAnswer(false);
             })
-            .catch((err) => alert(err.response.data.message));
+            .catch(err => {
+                alert(err.response.data.message);
+                setWaitingAnswer(false);
+            });
     }
 
     return (
@@ -68,14 +65,14 @@ export default function HabitCard({ cardInfo, habits, setHabits, renderProgress 
                     </SequenceStyle>
                 </p>
                 <p data-test="today-habit-record">
-                    Seu recorde: <SequenceStyle done={(cardContent.currentSequence === highestSequence && highestSequence !== 0) ? '#8FC549' : '#666666'}>
-                        {highestSequence} {highestSequence > 1 ? 'dias' : 'dia'}
+                    Seu recorde: <SequenceStyle done={(cardContent.currentSequence === cardContent.highestSequence && cardContent.highestSequence !== 0) ? '#8FC549' : '#666666'}>
+                        {cardContent.highestSequence} {cardContent.highestSequence > 1 ? 'dias' : 'dia'}
                     </SequenceStyle>
                 </p>
             </article>
 
             <CheckBox done={cardContent.done ? '#8FC549' : '#EBEBEB'} onClick={handleToggleCheckbox} data-test="today-habit-check-btn">
-                {waitingAnswer ?
+                {(waitingAnswer) ?
                     <LoadingFromServer>
                         <TailSpin width="50" height='50' color={cardContent.done ? '#EBEBEB' : '#FFFFFF'} />
                     </LoadingFromServer>
