@@ -32,8 +32,12 @@ export default function HabitCard({ cardInfo, renderProgress }) {
                     refreshCardRecord(updatedCard);
                 })
                 .catch((err) => {
-                    alert(err.response.data.message);
+                    alert(err.response ? err.response.data.message : err.message);
                     setWaitingAnswer(false);
+                    setCardContent(cardContent);
+                    progressId.done = cardContent.done;
+                    const progress = (renderProgress.filter((e) => e.done).length * percentage) / renderProgress.length;
+                    setUserInfo({ ...userInfo, progress });
                 });
             const progress = (renderProgress.filter((e) => e.done).length * percentage) / renderProgress.length;
             setUserInfo({ ...userInfo, progress });
